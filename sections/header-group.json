@@ -40,11 +40,11 @@
     "header": {
       "type": "header",
       "settings": {
-        "enable_sticky": true,
-        "hide_on_scroll": false,
-        "logo": "{{shop.brand.logo}}",
-        "logo_max_width": 120,
-        "logo_mobile_max_width": 100,
+        "enable_sticky": false,
+        "hide_on_scroll": true,
+        "logo": "shopify://shop_images/ChatGPT_Image_17_janv._2026_20_11_42.png",
+        "logo_max_width": 240,
+        "logo_mobile_max_width": 120,
         "menu": "main-menu",
         "sidebar_menu": "",
         "secondary_menu": "",

@@ -9,6 +9,19 @@
  */
 {
   "sections": {
+    "custom_liquid_YyPCdn": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": true,
+        "remove_horizontal_spacing": true,
+        "liquid": "<!-- HERO VIDEO LUMISCOP – Style LumiPad (à coller dans un bloc HTML Shopify / section custom) -->\n<section class=\"nyv-hero-video\" id=\"nyvLumiscopHero\">\n  <!-- Vidéo -->\n  <video class=\"nyv-hero-bg\" autoplay muted loop playsinline preload=\"metadata\">\n    <source src=\"https://cdn.shopify.com/videos/c/o/v/2aa8c270225c43d7b476a5aa2be4d8bf.mp4\" type=\"video/mp4\">\n  </video>\n\n  <!-- Overlay sombre léger (pour lisibilité) -->\n  <div class=\"nyv-hero-overlay\" aria-hidden=\"true\"></div>\n\n  <!-- Contenu -->\n  <div class=\"nyv-hero-inner\">\n    <div class=\"nyv-hero-text\">\n      <h1 class=\"nyv-hero-title\">LumiScop™ — Avancez en toute confiance, même dans le noir.</h1>\n      \n    </div>\n\n    <!-- CTA à droite -->\n    <a class=\"nyv-hero-cta\" href=\"/products/lumiscop\" aria-label=\"Acheter LumiScop\">\n      <span class=\"nyv-cta-badge\">SOLDES D’HIVER</span>\n      <span class=\"nyv-cta-main\">ACHETER MAINTENANT</span>\n      <span class=\"nyv-cta-mini\">Offre limitée</span>\n      <span class=\"nyv-cta-glow\" aria-hidden=\"true\"></span>\n    </a>\n  </div>\n</section>\n\n<style>\n  /* ====== WRAP ====== */\n  .nyv-hero-video{\n    position:relative;\n    width:100%;\n    border-radius:22px;\n    overflow:hidden;\n    background:#0b1220;\n    box-shadow: 0 18px 55px rgba(2,6,23,.25);\n    border:1px solid rgba(255,255,255,.08);\n  }\n\n  /* Vidéo en fond */\n  .nyv-hero-bg{\n    width:100%;\n    height: clamp(420px, 58vh, 700px);\n    object-fit: cover;\n    display:block;\n    transform: scale(1.02);\n  }\n\n  /* Overlay lisibilité */\n  .nyv-hero-overlay{\n    position:absolute;\n    inset:0;\n    background: radial-gradient(1200px 500px at 20% 35%, rgba(0,0,0,.15), rgba(0,0,0,.65));\n    pointer-events:none;\n  }\n\n  /* ====== LAYOUT ====== */\n  .nyv-hero-inner{\n    position:absolute;\n    inset:0;\n    display:flex;\n    align-items:flex-end;\n    justify-content:space-between;\n    gap:16px;\n    padding: clamp(16px, 3vw, 34px);\n  }\n\n  .nyv-hero-text{\n    max-width: 720px;\n    padding-bottom: 6px;\n  }\n\n  .nyv-hero-title{\n    margin:0 0 10px 0;\n    color:#fff;\n    font-weight: 1000;\n    line-height: 1.05;\n    letter-spacing: -.4px;\n    font-size: clamp(24px, 3.2vw, 44px);\n    text-shadow: 0 14px 40px rgba(0,0,0,.45);\n  }\n\n  .nyv-hero-sub{\n    margin:0;\n    color: rgba(255,255,255,.88);\n    font-weight: 650;\n    font-size: clamp(14px, 1.35vw, 18px);\n    line-height: 1.35;\n    max-width: 620px;\n    text-shadow: 0 14px 40px rgba(0,0,0,.45);\n  }\n\n  /* ====== CTA ====== */\n  .nyv-hero-cta{\n    position:relative;\n    display:flex;\n    flex-direction:column;\n    align-items:flex-start;\n    gap:6px;\n    text-decoration:none;\n    user-select:none;\n\n    padding: 14px 16px 13px;\n    border-radius: 18px;\n    background: rgba(255,255,255,.08);\n    border: 1px solid rgba(255,255,255,.18);\n    backdrop-filter: blur(10px);\n    -webkit-backdrop-filter: blur(10px);\n\n    min-width: 235px;\n    max-width: 320px;\n    box-shadow: 0 18px 55px rgba(0,0,0,.35);\n    overflow:hidden;\n  }\n\n  .nyv-cta-badge{\n    display:inline-flex;\n    align-items:center;\n    justify-content:center;\n    padding:6px 10px;\n    border-radius:999px;\n    background: rgba(255,216,77,.95);\n    color:#0b1220;\n    font-weight: 1000;\n    font-size: 12px;\n    letter-spacing: .2px;\n    text-transform: uppercase;\n    box-shadow: 0 10px 30px rgba(255,216,77,.18);\n  }\n\n  .nyv-cta-main{\n    color:#fff;\n    font-weight: 1000;\n    font-size: 16px;\n    letter-spacing: .2px;\n  }\n\n  .nyv-cta-mini{\n    color: rgba(255,255,255,.78);\n    font-weight: 700;\n    font-size: 12px;\n  }\n\n  /* Effet jaune (glow) */\n  .nyv-cta-glow{\n    position:absolute;\n    inset:-60px -60px auto auto;\n    width: 170px;\n    height: 170px;\n    background: radial-gradient(circle at 30% 30%, rgba(255,216,77,.95), rgba(255,216,77,.18) 55%, rgba(255,216,77,0) 70%);\n    transform: rotate(18deg);\n    pointer-events:none;\n  }\n\n  /* Hover */\n  .nyv-hero-cta:hover{\n    transform: translateY(-1px);\n    border-color: rgba(255,216,77,.55);\n    box-shadow: 0 24px 70px rgba(0,0,0,.42);\n  }\n  .nyv-hero-cta:active{\n    transform: translateY(0px) scale(.99);\n  }\n\n  /* ====== MOBILE ====== */\n  @media (max-width: 768px){\n    .nyv-hero-inner{\n      flex-direction:column;\n      align-items:stretch;\n      justify-content:flex-end;\n      gap:12px;\n    }\n    .nyv-hero-cta{\n      width:100%;\n      max-width:none;\n      min-width:0;\n      align-items:center;\n      text-align:center;\n    }\n    .nyv-cta-glow{\n      inset:-80px auto auto -60px; /* glow à gauche sur mobile */\n    }\n  }\n\n  /* Accessibilité: réduit les animations si demandé */\n  @media (prefers-reduced-motion: reduce){\n    .nyv-hero-cta{ transition:none; }\n  }\n</style>\n\n<script>\n  // Petit \"failsafe\" iOS : relance la lecture si besoin (muted + playsinline)\n  (function(){\n    const wrap = document.getElementById(\"nyvLumiscopHero\");\n    if(!wrap) return;\n    const vid = wrap.querySelector(\"video\");\n    if(!vid) return;\n\n    const tryPlay = () => {\n      const p = vid.play();\n      if (p && typeof p.catch === \"function\") p.catch(()=>{});\n    };\n\n    // au chargement\n    tryPlay();\n\n    // si l’utilisateur scroll et que la vidéo est visible, on retente\n    const io = new IntersectionObserver((entries)=>{\n      entries.forEach(e=>{\n        if(e.isIntersecting) tryPlay();\n      });\n    }, { threshold: 0.35 });\n    io.observe(wrap);\n  })();\n</script>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
     "slideshow": {
       "type": "slideshow",
       "blocks": {
@@ -67,6 +80,19 @@
         "cycle_speed": 6,
         "background": "#f2f2f2",
         "background_gradient": "linear-gradient(60deg, rgba(60, 65, 68, 1), rgba(23, 29, 33, 1) 98%)"
+      }
+    },
+    "custom_liquid_XB49ff": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "full_width": false,
+        "remove_vertical_spacing": true,
+        "remove_horizontal_spacing": false,
+        "liquid": "<!-- WRAPPER FULL WIDTH -->\n<div style=\"width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);\">\n  <div class=\"vu-sur-banner\">\n    <span class=\"vu-sur-text\">VU SUR :</span>\n  </div>\n</div>\n\n<style>\n/* ✅ Bandeau JAUNE */\n.vu-sur-banner{\n  position:relative;\n  overflow:hidden;\n\n  /* 🟡 FOND JAUNE */\n  background:linear-gradient(180deg,#FFF300 0%,#FFD84D 60%,#FFF300 100%);\n\n  border:1px solid rgba(0,0,0,.15);\n  border-radius:8px;\n  padding:26px 14px;\n  margin:14px 0;\n  text-align:center;\n}\n\n/* ✅ TEXTE (NOIR PREMIUM) */\n.vu-sur-text{\n  position:relative;\n  z-index:5;\n  font-family:Poppins,Arial,sans-serif;\n  font-weight:900;\n  font-size:42px;\n  letter-spacing:.6px;\n  color:#0b0b0b;\n  text-shadow:0 2px 6px rgba(255,255,255,.6);\n}\n\n/* 🌄 MONTAGNES SUBTILES (ton sur ton) */\n.vu-sur-banner::before{\n  content:\"\";\n  position:absolute;\n  left:0; right:0; bottom:-2px;\n  height:70%;\n  z-index:1;\n  pointer-events:none;\n  background:\n    linear-gradient(to top, rgba(0,0,0,.12), transparent 70%),\n    repeating-linear-gradient(135deg,\n      rgba(0,0,0,.10) 0 6px,\n      rgba(0,0,0,0) 6px 18px\n    );\n  clip-path:polygon(\n    0% 100%, 0% 72%,\n    10% 62%, 18% 68%, 26% 54%, 35% 66%,\n    44% 52%, 55% 68%, 65% 50%, 74% 66%,\n    84% 56%, 92% 64%, 100% 58%,\n    100% 100%\n  );\n  opacity:.25;\n}\n\n/* ✨ REFLET BLANC (propre sur jaune) */\n.vu-sur-banner::after{\n  content:\"\";\n  position:absolute;\n  top:0; left:-60%;\n  width:40%;\n  height:100%;\n  z-index:2;\n  pointer-events:none;\n  background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);\n  animation:vuSurShine 6s ease-in-out infinite;\n}\n@keyframes vuSurShine{\n  0%{left:-60%;opacity:0}\n  25%{opacity:1}\n  55%{left:120%;opacity:.45}\n  100%{left:120%;opacity:0}\n}\n\n/* 📱 MOBILE */\n@media(max-width:768px){\n  .vu-sur-banner{padding:18px 12px}\n  .vu-sur-text{font-size:26px}\n}\n</style>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
       }
     },
     "image-link-blocks": {
@@ -873,22 +899,10 @@
         "accordion_background": "",
         "accordion_text_color": ""
       }
-    },
-    "custom_liquid_XB49ff": {
-      "type": "custom-liquid",
-      "name": "Custom Liquid",
-      "settings": {
-        "full_width": false,
-        "remove_vertical_spacing": true,
-        "remove_horizontal_spacing": false,
-        "liquid": "<!-- WRAPPER FULL WIDTH -->\n<div style=\"width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);\">\n  <div class=\"vu-sur-banner\">\n    <span class=\"vu-sur-text\">VU SUR :</span>\n  </div>\n</div>\n\n<style>\n/* ✅ Bandeau JAUNE */\n.vu-sur-banner{\n  position:relative;\n  overflow:hidden;\n\n  /* 🟡 FOND JAUNE */\n  background:linear-gradient(180deg,#FFF300 0%,#FFD84D 60%,#FFF300 100%);\n\n  border:1px solid rgba(0,0,0,.15);\n  border-radius:8px;\n  padding:26px 14px;\n  margin:14px 0;\n  text-align:center;\n}\n\n/* ✅ TEXTE (NOIR PREMIUM) */\n.vu-sur-text{\n  position:relative;\n  z-index:5;\n  font-family:Poppins,Arial,sans-serif;\n  font-weight:900;\n  font-size:42px;\n  letter-spacing:.6px;\n  color:#0b0b0b;\n  text-shadow:0 2px 6px rgba(255,255,255,.6);\n}\n\n/* 🌄 MONTAGNES SUBTILES (ton sur ton) */\n.vu-sur-banner::before{\n  content:\"\";\n  position:absolute;\n  left:0; right:0; bottom:-2px;\n  height:70%;\n  z-index:1;\n  pointer-events:none;\n  background:\n    linear-gradient(to top, rgba(0,0,0,.12), transparent 70%),\n    repeating-linear-gradient(135deg,\n      rgba(0,0,0,.10) 0 6px,\n      rgba(0,0,0,0) 6px 18px\n    );\n  clip-path:polygon(\n    0% 100%, 0% 72%,\n    10% 62%, 18% 68%, 26% 54%, 35% 66%,\n    44% 52%, 55% 68%, 65% 50%, 74% 66%,\n    84% 56%, 92% 64%, 100% 58%,\n    100% 100%\n  );\n  opacity:.25;\n}\n\n/* ✨ REFLET BLANC (propre sur jaune) */\n.vu-sur-banner::after{\n  content:\"\";\n  position:absolute;\n  top:0; left:-60%;\n  width:40%;\n  height:100%;\n  z-index:2;\n  pointer-events:none;\n  background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);\n  animation:vuSurShine 6s ease-in-out infinite;\n}\n@keyframes vuSurShine{\n  0%{left:-60%;opacity:0}\n  25%{opacity:1}\n  55%{left:120%;opacity:.45}\n  100%{left:120%;opacity:0}\n}\n\n/* 📱 MOBILE */\n@media(max-width:768px){\n  .vu-sur-banner{padding:18px 12px}\n  .vu-sur-text{font-size:26px}\n}\n</style>",
-        "background": "",
-        "background_gradient": "",
-        "text_color": ""
-      }
     }
   },
   "order": [
+    "custom_liquid_YyPCdn",
     "slideshow",
     "custom_liquid_XB49ff",
     "image-link-blocks",
