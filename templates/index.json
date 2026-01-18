@@ -55,7 +55,7 @@
         "item_irhg8i": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/telecharger.png",
+            "image": "shopify://shop_images/ChatGPT_Image_18_janv._2026_13_38_04.png",
             "column_size": "4",
             "title": "",
             "heading_tag": "h4",
@@ -68,7 +68,7 @@
         "item_4bY6Rn": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/tvtv.png",
+            "image": "shopify://shop_images/ChatGPT_Image_18_janv._2026_13_40_08.png",
             "column_size": "4",
             "title": "",
             "heading_tag": "h4",
@@ -81,7 +81,7 @@
         "item_6f8Cii": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/240x240.jpg",
+            "image": "shopify://shop_images/ChatGPT_Image_18_janv._2026_13_38_40.png",
             "column_size": "4",
             "title": "",
             "heading_tag": "h4",
@@ -94,7 +94,7 @@
         "item_rwWjBB": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/channels4_profile.jpg",
+            "image": "shopify://shop_images/ChatGPT_Image_18_janv._2026_13_41_20.png",
             "column_size": "4",
             "title": "",
             "heading_tag": "h4",
@@ -114,7 +114,7 @@
       "name": "Multi-column",
       "settings": {
         "full_width": false,
-        "stack_on_mobile": false,
+        "stack_on_mobile": true,
         "gap": "small",
         "text_alignment": "center",
         "subheading": "",
@@ -208,7 +208,7 @@
         "item-2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/8.webp",
+            "image": "shopify://shop_images/ChatGPT_Image_18_janv._2026_13_48_30.png",
             "title": "",
             "heading_tag": "h4",
             "link_url": "",
@@ -252,7 +252,7 @@
         "29246d34-c6e0-4373-84f6-b15e57736a00": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/6_2f0049c9-deb2-4448-bd7d-fe52459077c0.webp",
+            "image": "shopify://shop_images/ChatGPT_Image_18_janv._2026_13_46_17.png",
             "title": "",
             "heading_tag": "h4",
             "link_url": "",
