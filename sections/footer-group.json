@@ -18,52 +18,52 @@
           "type": "item",
           "settings": {
             "icon": "picto-box",
-            "mobile_icon_width": 24,
-            "icon_width": 24,
-            "icon_background_type": "none",
-            "icon_background": "",
-            "icon_color": "",
-            "title": "Free shipping",
-            "content": "<p>Tell your customers about your shipping offer.</p>"
+            "mobile_icon_width": 60,
+            "icon_width": 64,
+            "icon_background_type": "circle",
+            "icon_background": "#1a1a1a",
+            "icon_color": "#f0c417",
+            "title": "Livraison gratuite",
+            "content": ""
           }
         },
         "customer-support": {
           "type": "item",
           "settings": {
             "icon": "picto-customer-support",
-            "mobile_icon_width": 24,
-            "icon_width": 24,
-            "icon_background_type": "none",
-            "icon_background": "",
-            "icon_color": "",
-            "title": "Customer service",
-            "content": "<p>Tell your customers how they can reach you.</p>"
+            "mobile_icon_width": 60,
+            "icon_width": 60,
+            "icon_background_type": "circle",
+            "icon_background": "#1a1a1a",
+            "icon_color": "#f0c417",
+            "title": "Paiement securisé",
+            "content": ""
           }
         },
         "discount": {
           "type": "item",
           "settings": {
-            "icon": "picto-coupon",
-            "mobile_icon_width": 24,
-            "icon_width": 24,
-            "icon_background_type": "none",
-            "icon_background": "",
-            "icon_color": "",
-            "title": "Refer a friend",
-            "content": "<p>Tell your customers about your promotional offers.</p>"
+            "icon": "picto-return",
+            "mobile_icon_width": 60,
+            "icon_width": 60,
+            "icon_background_type": "circle",
+            "icon_background": "#1a1a1a",
+            "icon_color": "#f0c417",
+            "title": "Satisfait ou remboursé",
+            "content": ""
           }
         },
         "payment": {
           "type": "item",
           "settings": {
-            "icon": "picto-lock",
-            "mobile_icon_width": 24,
-            "icon_width": 24,
-            "icon_background_type": "none",
-            "icon_background": "",
-            "icon_color": "",
-            "title": "Secure payment",
-            "content": "<p>Tel your customers about your payment methods.</p>"
+            "icon": "picto-customer-support",
+            "mobile_icon_width": 60,
+            "icon_width": 60,
+            "icon_background_type": "circle",
+            "icon_background": "#1a1a1a",
+            "icon_color": "#f0c417",
+            "title": "Service client 7j/7",
+            "content": ""
           }
         }
       },
@@ -80,7 +80,7 @@
         "heading_tag": "h6",
         "text_alignment": "center",
         "icon_spacing": "small",
-        "background": "",
+        "background": "#f0c417",
         "background_gradient": "",
         "text_color": ""
       }
@@ -119,12 +119,12 @@
         "text_3iMtP8"
       ],
       "settings": {
-        "show_social_media": true,
+        "show_social_media": false,
         "show_payment_icons": true,
-        "show_country_selector": true,
-        "show_country_flag": true,
-        "show_country_name": true,
-        "show_locale_selector": true
+        "show_country_selector": false,
+        "show_country_flag": false,
+        "show_country_name": false,
+        "show_locale_selector": false
       }
     }
   },
