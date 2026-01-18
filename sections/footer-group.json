@@ -103,11 +103,20 @@
             "menu": "liens-utiles",
             "show_menu_title": true
           }
+        },
+        "text_3iMtP8": {
+          "type": "text",
+          "settings": {
+            "title": "Nous contacter",
+            "content": "<p><strong>Service client : </strong><a href=\"mailto:contact.lumipad@newyva.com\" target=\"_blank\" title=\"Contact.lumipad\">contact.lumipad@newyva.com</a></p><p><strong>horaires : </strong>Du Lun au Vend de 9h à 12h et de 14 à 18h / Sam et Dim de 10 à 12h</p>",
+            "enable_follow_on_shop": true
+          }
         }
       },
       "block_order": [
         "newsletter",
-        "links"
+        "links",
+        "text_3iMtP8"
       ],
       "settings": {
         "show_social_media": true,
