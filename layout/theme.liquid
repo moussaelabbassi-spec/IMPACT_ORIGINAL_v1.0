@@ -75,5 +75,66 @@
         {%- sections 'footer-group' -%}
       {%- endif -%}
     </main>
+    <script>
+(function(){
+  const GIFT_VARIANTS = [56805951439231, 56805965234559];
+
+  // Détecte si LumiScop est dans le panier (à améliorer avec handle/product_id)
+  function hasLumiscop(cart){
+    return cart.items.some(it => (it.product_title || it.title || '').toLowerCase().includes('lumiscop'));
+  }
+
+  function giftLines(cart){
+    return cart.items.filter(it => GIFT_VARIANTS.includes(it.variant_id));
+  }
+
+  async function updateLine(line, qty){
+    // line = position (1-based) dans Shopify cart API
+    const res = await fetch('/cart/change.js', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ line, quantity: qty })
+    });
+    if(!res.ok) throw new Error(await res.text());
+    return res.json();
+  }
+
+  async function getCart(){
+    const res = await fetch('/cart.js');
+    if(!res.ok) throw new Error(await res.text());
+    return res.json();
+  }
+
+  async function enforce(){
+    try{
+      const cart = await getCart();
+      const lumiscopPresent = hasLumiscop(cart);
+      const gifts = giftLines(cart);
+
+      if(!lumiscopPresent && gifts.length){
+        // Supprime tous les cadeaux
+        for(const it of gifts){
+          await updateLine(it.line, 0);
+        }
+        // Option: recharger pour afficher proprement
+        location.reload();
+      }
+    }catch(e){
+      console.error('Gift enforce error', e);
+    }
+  }
+
+  // Lance au chargement + après interactions éventuelles
+  document.addEventListener('DOMContentLoaded', enforce);
+
+  // Impact recharge le drawer : on relance quand on ouvre
+  document.addEventListener('click', (e)=>{
+    if(e.target.closest('a[href="/cart"], button[name="checkout"], [data-action="open-drawer"]')){
+      setTimeout(enforce, 300);
+    }
+  });
+})();
+</script>
+
   </body>
 </html>
