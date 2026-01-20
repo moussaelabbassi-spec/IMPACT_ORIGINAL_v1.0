@@ -76,63 +76,66 @@
       {%- endif -%}
     </main>
     <script>
-(function(){
-  const GIFT_VARIANTS = [56805951439231, 56805965234559];
+(function () {
 
-  // Détecte si LumiScop est dans le panier (à améliorer avec handle/product_id)
-  function hasLumiscop(cart){
-    return cart.items.some(it => (it.product_title || it.title || '').toLowerCase().includes('lumiscop'));
+  // =========================
+  // CONFIG (À ADAPTER)
+  // =========================
+  const MAIN_PRODUCT_KEYWORDS = ['lumiscop']; // ou handle exact
+  const GIFT_TAG = 'Cadeau';
+
+  async function getCart() {
+    const r = await fetch('/cart.js');
+    return r.json();
   }
 
-  function giftLines(cart){
-    return cart.items.filter(it => GIFT_VARIANTS.includes(it.variant_id));
-  }
-
-  async function updateLine(line, qty){
-    // line = position (1-based) dans Shopify cart API
-    const res = await fetch('/cart/change.js', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ line, quantity: qty })
+  async function updateCart(updates) {
+    await fetch('/cart/update.js', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ updates })
     });
-    if(!res.ok) throw new Error(await res.text());
-    return res.json();
   }
 
-  async function getCart(){
-    const res = await fetch('/cart.js');
-    if(!res.ok) throw new Error(await res.text());
-    return res.json();
+  function isMainProduct(item) {
+    const t = (item.product_title || item.title || '').toLowerCase();
+    return MAIN_PRODUCT_KEYWORDS.some(k => t.includes(k));
   }
 
-  async function enforce(){
-    try{
-      const cart = await getCart();
-      const lumiscopPresent = hasLumiscop(cart);
-      const gifts = giftLines(cart);
+  function isGift(item) {
+    return (item.product_type || '').toLowerCase().includes('cadeau')
+      || (item.tags || '').toLowerCase().includes('cadeau');
+  }
 
-      if(!lumiscopPresent && gifts.length){
-        // Supprime tous les cadeaux
-        for(const it of gifts){
-          await updateLine(it.line, 0);
-        }
-        // Option: recharger pour afficher proprement
-        location.reload();
+  async function enforceRules() {
+    const cart = await getCart();
+    if (!cart || !cart.items) return;
+
+    const hasMain = cart.items.some(isMainProduct);
+    const gifts = cart.items.filter(isGift);
+
+    // ❌ cadeau sans produit principal → suppression auto
+    if (!hasMain && gifts.length) {
+      const updates = {};
+      gifts.forEach(i => updates[i.key] = 0);
+      await updateCart(updates);
+      location.reload();
+      return;
+    }
+
+    // ❌ blocage checkout si panier = 0€
+    if (cart.total_price === 0 && gifts.length) {
+      const btn = document.querySelector('button[name="checkout"], .cart__checkout-button');
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+        btn.title = "Ajoutez LumiScop pour valider la commande";
       }
-    }catch(e){
-      console.error('Gift enforce error', e);
     }
   }
 
-  // Lance au chargement + après interactions éventuelles
-  document.addEventListener('DOMContentLoaded', enforce);
+  document.addEventListener('DOMContentLoaded', enforceRules);
 
-  // Impact recharge le drawer : on relance quand on ouvre
-  document.addEventListener('click', (e)=>{
-    if(e.target.closest('a[href="/cart"], button[name="checkout"], [data-action="open-drawer"]')){
-      setTimeout(enforce, 300);
-    }
-  });
 })();
 </script>
 
