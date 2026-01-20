@@ -290,6 +290,20 @@
     "featured-product": {
       "type": "featured-product",
       "blocks": {
+        "pumper_bundles_app_block_qb_zzdczf": {
+          "type": "shopify://apps/pumper-bundles/blocks/app-block-qb/0856870d-2aca-4b1e-a662-cf1797f61270",
+          "settings": {
+            "selected_product": "{{section.settings.product}}",
+            "using_page_builder": false
+          }
+        },
+        "pumper_bundles_app_block_bundle_rQfgjT": {
+          "type": "shopify://apps/pumper-bundles/blocks/app-block-bundle/0856870d-2aca-4b1e-a662-cf1797f61270",
+          "settings": {
+            "selected_product": "{{section.settings.product}}",
+            "using_page_builder": false
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -340,20 +354,6 @@
           "disabled": true,
           "settings": {}
         },
-        "pumper_bundles_app_block_bundle_cGXhHi": {
-          "type": "shopify://apps/pumper-bundles/blocks/app-block-bundle/0856870d-2aca-4b1e-a662-cf1797f61270",
-          "settings": {
-            "selected_product": "{{section.settings.product}}",
-            "using_page_builder": false
-          }
-        },
-        "pumper_bundles_app_block_qb_KmwVxN": {
-          "type": "shopify://apps/pumper-bundles/blocks/app-block-qb/0856870d-2aca-4b1e-a662-cf1797f61270",
-          "settings": {
-            "selected_product": "{{section.settings.product}}",
-            "using_page_builder": false
-          }
-        },
         "buy-buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -367,6 +367,8 @@
         }
       },
       "block_order": [
+        "pumper_bundles_app_block_qb_zzdczf",
+        "pumper_bundles_app_block_bundle_rQfgjT",
         "title",
         "badges",
         "price",
@@ -375,8 +377,6 @@
         "description",
         "variant-picker",
         "quantity-selector",
-        "pumper_bundles_app_block_bundle_cGXhHi",
-        "pumper_bundles_app_block_qb_KmwVxN",
         "buy-buttons"
       ],
       "settings": {
@@ -389,7 +389,7 @@
         "enable_video_autoplay": true,
         "enable_video_looping": false,
         "enable_image_zoom": true,
-        "max_image_zoom_level": 3,
+        "max_image_zoom_level": 1,
         "background": "#ffffff",
         "background_gradient": "",
         "text_color": "",
