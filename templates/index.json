@@ -268,6 +268,14 @@
             "payment_button_background": "#ffffff",
             "payment_button_text_color": "#ffffff"
           }
+        },
+        "image_BfpxGk": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_16_janv._2026_17_56_51.png",
+            "alignment": "center",
+            "max_width": 500
+          }
         }
       },
       "block_order": [
@@ -276,7 +284,8 @@
         "variant-picker",
         "quantity-selector",
         "liquid_YqjJB6",
-        "buy-buttons"
+        "buy-buttons",
+        "image_BfpxGk"
       ],
       "settings": {
         "full_width": true,
