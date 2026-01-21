@@ -184,7 +184,7 @@
       "type": "before-after-image",
       "name": "Before/after image",
       "settings": {
-        "full_width": true,
+        "full_width": false,
         "subheading": "",
         "title": "Une visibilité qui fait toute la différence",
         "content": "<p><br/><br/></p>",
