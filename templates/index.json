@@ -49,6 +49,19 @@
         "text_color": ""
       }
     },
+    "custom_liquid_zQnJRG": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "full_width": false,
+        "remove_vertical_spacing": true,
+        "remove_horizontal_spacing": false,
+        "liquid": "<section class=\"nyv-mobile-marquee\">\n  <div class=\"nyv-track\">\n    <!-- SET 1 -->\n    <img src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_41_20.png?v=1768740115\" alt=\"\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_38_40.png?v=1768740113\" alt=\"\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_40_08.png?v=1768740114\" alt=\"\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_38_04.png?v=1768740114\" alt=\"\">\n\n    <!-- DUPLICATION (mobile only) -->\n    <img class=\"dup\" src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_41_20.png?v=1768740115\" alt=\"\">\n    <img class=\"dup\" src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_38_40.png?v=1768740113\" alt=\"\">\n    <img class=\"dup\" src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_40_08.png?v=1768740114\" alt=\"\">\n    <img class=\"dup\" src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_38_04.png?v=1768740114\" alt=\"\">\n  </div>\n</section>\n\n<style>\n/* BASE */\n.nyv-mobile-marquee{\n  width:100%;\n  overflow:hidden;\n  padding:14px 0;              /* prend plus de place verticalement */\n}\n\n.nyv-track{\n  display:flex;\n  align-items:center;\n  gap:18px;\n}\n\n/* ✅ IMPORTANT : jamais rogner */\n.nyv-track img{\n  display:block;\n  height:auto;                 /* pas de hauteur forcée ici */\n  width:auto;\n  max-height:160px;            /* limite par défaut */\n  border-radius:16px;\n  flex:0 0 auto;\n  object-fit:contain;          /* au cas où (zéro crop) */\n}\n\n/* =========================\n   DESKTOP : GROS + PREND DE LA PLACE\n   ========================= */\n@media (min-width: 769px){\n  .nyv-mobile-marquee{\n    overflow:visible;\n    padding:22px 0;            /* encore plus grand en desktop */\n  }\n\n  .nyv-track{\n    justify-content:center;\n    animation:none;\n    flex-wrap:wrap;            /* si écran petit → ça passe à la ligne */\n    gap:20px;\n  }\n\n  .nyv-track img{\n    max-height:240px;          /* 🔥 PLUS GROS DESKTOP */\n    border-radius:18px;\n  }\n\n  .nyv-track .dup{ display:none; }\n}\n\n/* =========================\n   MOBILE : DÉFILEMENT + PAS DE ROGNAGE\n   ========================= */\n@media (max-width: 768px){\n  .nyv-track{\n    width:max-content;\n    animation: nyvScroll 26s linear infinite;\n    will-change: transform;\n  }\n\n  /* ✅ Sur mobile on fixe une LARGEUR (pas une hauteur) -> jamais rogné */\n  .nyv-track img{\n    width:78vw;                /* gros et visible */\n    max-width:360px;           /* évite trop grand */\n    max-height:none;           /* on laisse respirer */\n    height:auto;\n    border-radius:14px;\n  }\n\n  @keyframes nyvScroll{\n    from{ transform: translateX(0); }\n    to{ transform: translateX(-50%); }\n  }\n}\n</style>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
     "multi_column_N4fknw": {
       "type": "multi-column",
       "blocks": {
@@ -342,25 +355,13 @@
         "button_background": "#f0c417",
         "button_text_color": "#1a1a1a"
       }
-    },
-    "custom_liquid_zQnJRG": {
-      "type": "custom-liquid",
-      "name": "Custom Liquid",
-      "settings": {
-        "full_width": false,
-        "remove_vertical_spacing": true,
-        "remove_horizontal_spacing": false,
-        "liquid": "<section class=\"nyv-mobile-marquee\">\n  <div class=\"nyv-track\">\n    <!-- SET 1 -->\n    <img src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_41_20.png?v=1768740115\" alt=\"\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_38_40.png?v=1768740113\" alt=\"\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_40_08.png?v=1768740114\" alt=\"\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_38_04.png?v=1768740114\" alt=\"\">\n\n    <!-- DUPLICATION (mobile only) -->\n    <img class=\"dup\" src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_41_20.png?v=1768740115\" alt=\"\">\n    <img class=\"dup\" src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_38_40.png?v=1768740113\" alt=\"\">\n    <img class=\"dup\" src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_40_08.png?v=1768740114\" alt=\"\">\n    <img class=\"dup\" src=\"https://cdn.shopify.com/s/files/1/0975/5004/1471/files/ChatGPT_Image_18_janv._2026_13_38_04.png?v=1768740114\" alt=\"\">\n  </div>\n</section>\n\n<style>\n/* BASE */\n.nyv-mobile-marquee{\n  width:100%;\n  overflow:hidden;\n  padding:14px 0;              /* prend plus de place verticalement */\n}\n\n.nyv-track{\n  display:flex;\n  align-items:center;\n  gap:18px;\n}\n\n/* ✅ IMPORTANT : jamais rogner */\n.nyv-track img{\n  display:block;\n  height:auto;                 /* pas de hauteur forcée ici */\n  width:auto;\n  max-height:160px;            /* limite par défaut */\n  border-radius:16px;\n  flex:0 0 auto;\n  object-fit:contain;          /* au cas où (zéro crop) */\n}\n\n/* =========================\n   DESKTOP : GROS + PREND DE LA PLACE\n   ========================= */\n@media (min-width: 769px){\n  .nyv-mobile-marquee{\n    overflow:visible;\n    padding:22px 0;            /* encore plus grand en desktop */\n  }\n\n  .nyv-track{\n    justify-content:center;\n    animation:none;\n    flex-wrap:wrap;            /* si écran petit → ça passe à la ligne */\n    gap:20px;\n  }\n\n  .nyv-track img{\n    max-height:240px;          /* 🔥 PLUS GROS DESKTOP */\n    border-radius:18px;\n  }\n\n  .nyv-track .dup{ display:none; }\n}\n\n/* =========================\n   MOBILE : DÉFILEMENT + PAS DE ROGNAGE\n   ========================= */\n@media (max-width: 768px){\n  .nyv-track{\n    width:max-content;\n    animation: nyvScroll 26s linear infinite;\n    will-change: transform;\n  }\n\n  /* ✅ Sur mobile on fixe une LARGEUR (pas une hauteur) -> jamais rogné */\n  .nyv-track img{\n    width:78vw;                /* gros et visible */\n    max-width:360px;           /* évite trop grand */\n    max-height:none;           /* on laisse respirer */\n    height:auto;\n    border-radius:14px;\n  }\n\n  @keyframes nyvScroll{\n    from{ transform: translateX(0); }\n    to{ transform: translateX(-50%); }\n  }\n}\n</style>",
-        "background": "",
-        "background_gradient": "",
-        "text_color": ""
-      }
     }
   },
   "order": [
     "custom_liquid_YyPCdn",
     "slideshow",
     "custom_liquid_XB49ff",
+    "custom_liquid_zQnJRG",
     "multi_column_N4fknw",
     "custom_liquid_UBm9WA",
     "image-with-text-overlay",
@@ -369,7 +370,6 @@
     "custom_liquid_ANqPBU",
     "custom_liquid_HVAXQ3",
     "custom_liquid_WbPn9R",
-    "contact_arjNDq",
-    "custom_liquid_zQnJRG"
+    "contact_arjNDq"
   ]
 }
