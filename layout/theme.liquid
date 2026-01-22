@@ -207,6 +207,125 @@
   // (si une app fait window.location='/cart', le drawer s’ouvrira via fallback)
 })();
 </script>
+<script>
+(function(){
+  // ------------- Réglages -------------
+  const BLOCK_MS = 2500; // fenêtre de blocage après ajout panier (2.5s)
+
+  let blockUntil = 0;
+
+  function shouldBlock(url){
+    try{
+      const u = new URL(url, location.origin);
+      return u.pathname === "/cart" || u.pathname.startsWith("/checkout");
+    }catch(e){
+      return (url === "/cart" || String(url).includes("/checkout"));
+    }
+  }
+
+  // ------------- Bloque redirects forcées (apps/scripts) -------------
+  const _assign = window.location.assign.bind(window.location);
+  const _replace = window.location.replace.bind(window.location);
+
+  window.location.assign = function(url){
+    if (Date.now() < blockUntil && shouldBlock(url)) return;
+    return _assign(url);
+  };
+  window.location.replace = function(url){
+    if (Date.now() < blockUntil && shouldBlock(url)) return;
+    return _replace(url);
+  };
+
+  // ------------- Ouvre le drawer via icône panier (fallback fiable) -------------
+  function openCartDrawer(){
+    // Impact: le clic sur l'icône panier ouvre le drawer si "Cajón" activé
+    const btn =
+      document.querySelector('[data-drawer-open="cart"]') ||
+      document.querySelector('a[href="/cart"].header__icon, a[href="/cart"][aria-label]') ||
+      document.querySelector('.header__icon--cart, .header__cart, .header__icon-cart') ||
+      document.querySelector('a[href="/cart"]');
+
+    if(btn) btn.click();
+  }
+
+  // ------------- AJAX Add-to-cart (béton) -------------
+  async function ajaxAddFromForm(form){
+    // supprime un éventuel redirect_to caché
+    const redirect = form.querySelector('[name="redirect_to"]');
+    if(redirect) redirect.remove();
+
+    const idInput = form.querySelector('[name="id"]');
+    if(!idInput || !idInput.value) throw new Error("No variant id");
+
+    const qtyInput = form.querySelector('[name="quantity"]');
+    const quantity = qtyInput && qtyInput.value ? Number(qtyInput.value) : 1;
+
+    // active le blocage des redirects pendant quelques secondes
+    blockUntil = Date.now() + BLOCK_MS;
+
+    const res = await fetch("/cart/add.js", {
+      method: "POST",
+      headers: { "Content-Type":"application/json", "Accept":"application/json" },
+      body: JSON.stringify({ id: Number(idInput.value), quantity })
+    });
+
+    if(!res.ok) throw new Error("Add failed");
+
+    // tente events
+    document.dispatchEvent(new CustomEvent("cart:refresh"));
+    document.dispatchEvent(new CustomEvent("cart:open"));
+
+    // fallback fiable : ouvre le drawer
+    setTimeout(openCartDrawer, 80);
+  }
+
+  // ------------- Interception CLIC + SUBMIT -------------
+  function findAddToCartForm(fromEl){
+    // bouton dans form
+    const form = fromEl.closest('form[action*="/cart/add"]') || fromEl.closest("form");
+    if(!form) return null;
+
+    // doit contenir un input name="id"
+    if(!form.querySelector('[name="id"]')) return null;
+
+    // évite de casser d’autres forms
+    return form;
+  }
+
+  document.addEventListener("click", function(e){
+    const btn = e.target.closest(
+      'button[name="add"], button[type="submit"], .product-form__submit, [data-add-to-cart], #AddToCart'
+    );
+    if(!btn) return;
+
+    const form = findAddToCartForm(btn);
+    if(!form) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    ajaxAddFromForm(form).catch(err=>{
+      console.error(err);
+      alert("Ajout au panier impossible (variante).");
+    });
+  }, true);
+
+  document.addEventListener("submit", function(e){
+    const form = e.target;
+    if(!form || !form.querySelector('[name="id"]')) return;
+    if(!(form.action || "").includes("/cart/add")) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    ajaxAddFromForm(form).catch(err=>{
+      console.error(err);
+      alert("Ajout au panier impossible (submit).");
+    });
+  }, true);
+
+})();
+</script>
 
   </body>
 </html>
