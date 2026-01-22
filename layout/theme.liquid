@@ -163,22 +163,41 @@
 </script>
 <script>
 (async()=>{
-  const MAIN=[56791488790911,56806659064191]; // LumiScop SOLO + DUO
-  const GIFTS=[56805951439231,56805965234559]; // Étui + Brassard
-  const c=await fetch('/cart.js').then(r=>r.json());
-  const hasMain=c.items.some(i=>MAIN.includes(i.variant_id));
-  if(!hasMain){
-    for(const it of c.items){
-      if(GIFTS.includes(it.variant_id)){
-        await fetch('/cart/change.js',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({id:it.key,quantity:0})
-        });
-      }
+  const MAIN=[56791488790911,56806659064191];
+  const GIFTS=[56805951439231,56805965234559];
+
+  async function clean(){
+    const c=await fetch('/cart.js').then(r=>r.json());
+    const hasMain=c.items.some(i=>MAIN.includes(i.variant_id));
+    if(hasMain) return;
+
+    const toRemove=c.items.filter(i=>GIFTS.includes(i.variant_id));
+    if(!toRemove.length) return;
+
+    for(const it of toRemove){
+      await fetch('/cart/change.js',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({id:it.key,quantity:0})
+      });
     }
     location.reload();
   }
+
+  // au chargement
+  clean();
+
+  // après toute mise à jour du panier (Impact utilise souvent fetch)
+  const _fetch=window.fetch;
+  window.fetch=function(){
+    return _fetch.apply(this,arguments).then(async r=>{
+      try{
+        const u=(arguments[0]||'')+''; 
+        if(u.includes('/cart/change')||u.includes('/cart/update')||u.includes('/cart/add')) setTimeout(clean,300);
+      }catch(e){}
+      return r;
+    });
+  };
 })();
 </script>
 
