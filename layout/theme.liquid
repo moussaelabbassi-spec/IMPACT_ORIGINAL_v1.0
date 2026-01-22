@@ -138,33 +138,6 @@
 
 })();
 </script>
-<script>
-document.addEventListener("submit", function(e){
-  const form = e.target;
-
-  // On vise uniquement les formulaires "Ajouter au panier"
-  if (!form || !form.action || !form.action.includes("/cart/add")) return;
-
-  // ON BLOQUE LE CHANGEMENT DE PAGE
-  e.preventDefault();
-
-  const data = new FormData(form);
-
-  fetch("/cart/add.js", {
-    method: "POST",
-    body: data,
-    headers: { "Accept": "application/json" }
-  })
-  .then(() => {
-    // ON OUVRE LE PANIER À DROITE (Impact)
-    document.dispatchEvent(new CustomEvent("cart:open"));
-    document.dispatchEvent(new CustomEvent("cart:refresh"));
-  })
-  .catch(() => {
-    alert("Erreur ajout panier");
-  });
-});
-</script>
 
   </body>
 </html>
