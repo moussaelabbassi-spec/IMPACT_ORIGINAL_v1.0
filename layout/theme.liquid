@@ -138,6 +138,75 @@
 
 })();
 </script>
+<script>
+(function(){
+  // Ouvre le drawer en cliquant sur l’icône panier du header (Impact l’ouvre en drawer)
+  function openDrawerFallback(){
+    const btn =
+      document.querySelector('[data-drawer-open="cart"]') ||
+      document.querySelector('a[href="/cart"][aria-label], a[href="/cart"].header__icon') ||
+      document.querySelector('.header__cart, .header__icon--cart, .header__icon-cart') ||
+      document.querySelector('a[href="/cart"]');
+    if(btn) btn.click();
+  }
+
+  async function ajaxAddFromForm(form){
+    const idInput = form.querySelector('[name="id"]');
+    if(!idInput || !idInput.value) throw new Error("No variant id");
+    const qtyInput = form.querySelector('[name="quantity"]');
+    const quantity = qtyInput && qtyInput.value ? Number(qtyInput.value) : 1;
+
+    const res = await fetch("/cart/add.js", {
+      method: "POST",
+      headers: { "Content-Type":"application/json", "Accept":"application/json" },
+      body: JSON.stringify({ id: Number(idInput.value), quantity })
+    });
+    if(!res.ok) throw new Error("Add failed");
+
+    // Essaye d’ouvrir le drawer (Impact écoute parfois ces events)
+    document.dispatchEvent(new CustomEvent("cart:refresh"));
+    document.dispatchEvent(new CustomEvent("cart:open"));
+
+    // Fallback sûr : clic sur l’icône panier (ouvre le drawer)
+    setTimeout(openDrawerFallback, 50);
+  }
+
+  // 1) Intercepte le CLIC sur tout bouton "Ajouter au panier"
+  document.addEventListener("click", function(e){
+    const addBtn = e.target.closest('button[name="add"], button[type="submit"], [data-add-to-cart], .product-form__submit, .add-to-cart, #AddToCart');
+    if(!addBtn) return;
+
+    const form = addBtn.closest('form[action*="/cart/add"]') || addBtn.closest("form");
+    if(!form) return;
+
+    // On bloque la navigation / submit normal
+    e.preventDefault();
+    e.stopPropagation();
+
+    ajaxAddFromForm(form).catch(err=>{
+      console.error(err);
+      alert("Impossible d'ajouter au panier (variant).");
+    });
+  }, true);
+
+  // 2) Intercepte aussi le SUBMIT classique (au cas où)
+  document.addEventListener("submit", function(e){
+    const form = e.target;
+    if(!form || !form.action || !form.action.includes("/cart/add")) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    ajaxAddFromForm(form).catch(err=>{
+      console.error(err);
+      alert("Impossible d'ajouter au panier (submit).");
+    });
+  }, true);
+
+  // 3) Bloque les redirections vers /cart si elles sont déclenchées juste après
+  // (si une app fait window.location='/cart', le drawer s’ouvrira via fallback)
+})();
+</script>
 
   </body>
 </html>
