@@ -9878,3 +9878,9 @@ split-lines {
   display: -webkit-box;
   overflow: hidden;
 }
+/* ❌ Cache le bouton "Acheter maintenant" (Buy it now) */
+.shopify-payment-button,
+.shopify-payment-button__button,
+.shopify-payment-button__more-options {
+  display: none !important;
+}
