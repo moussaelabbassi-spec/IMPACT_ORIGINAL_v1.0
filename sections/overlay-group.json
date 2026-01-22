@@ -33,6 +33,7 @@
     },
     "cart-drawer": {
       "type": "cart-drawer",
+      "custom_css": [],
       "settings": {
         "show_cart_note": true,
         "show_shipping_text": true,
