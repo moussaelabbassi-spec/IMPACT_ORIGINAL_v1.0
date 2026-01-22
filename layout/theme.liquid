@@ -76,6 +76,33 @@
       {%- endif -%}
     </main>
 <script>
+(function(){
+  if (window.__NYV_ATC__) return;
+  window.__NYV_ATC__ = true;
+
+  function openCart(){
+    const btn =
+      document.querySelector('[data-drawer-open="cart"]') ||
+      document.querySelector('.header__icon--cart, .header__icon-cart, .header__cart') ||
+      document.querySelector('a[href="/cart"]');
+    if (btn) btn.click();
+  }
+
+  document.addEventListener("submit", function(e){
+    const form = e.target;
+    if(!form || !(form.action || "").includes("/cart/add")) return;
+
+    e.preventDefault();
+
+    fetch("/cart/add.js", { method:"POST", body: new FormData(form) })
+      .then(()=> {
+        document.dispatchEvent(new CustomEvent("cart:refresh"));
+        setTimeout(openCart, 100);
+      })
+      .catch(()=> alert("Erreur ajout panier"));
+  }, true);
+})();
+</script>
 
   </body>
 </html>
