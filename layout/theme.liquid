@@ -162,35 +162,38 @@
 })();
 </script>
 <script>
-(()=> {
+(async()=>{
   const MAIN=[56791488790911,56806659064191];
   const GIFTS=[56805951439231,56805965234559];
-  let lock=false;
 
   async function clean(){
-    if(lock) return; lock=true;
     const c=await fetch('/cart.js').then(r=>r.json());
     const hasMain=c.items.some(i=>MAIN.includes(i.variant_id));
-    if(!hasMain){
-      const gifts=c.items.filter(i=>GIFTS.includes(i.variant_id));
-      for(const it of gifts){
-        await fetch('/cart/change.js',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({id:it.key,quantity:0})
-        });
-      }
+    if(hasMain) return;
+
+    const toRemove=c.items.filter(i=>GIFTS.includes(i.variant_id));
+    if(!toRemove.length) return;
+
+    for(const it of toRemove){
+      await fetch('/cart/change.js',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({id:it.key,quantity:0})
+      });
     }
-    lock=false;
+    location.reload();
   }
 
+  // au chargement
+  clean();
+
+  // après toute mise à jour du panier (Impact utilise souvent fetch)
   const _fetch=window.fetch;
   window.fetch=function(){
-    return _fetch.apply(this,arguments).then(r=>{
+    return _fetch.apply(this,arguments).then(async r=>{
       try{
-        const u=((arguments[0]||'')+'');
-        // ✅ seulement quand on MODIFIE/SUPPRIME le panier (pas /cart/add)
-        if(u.includes('/cart/change') || u.includes('/cart/update')) setTimeout(clean,400);
+        const u=(arguments[0]||'')+''; 
+        if(u.includes('/cart/change')||u.includes('/cart/update')||u.includes('/cart/add')) setTimeout(clean,300);
       }catch(e){}
       return r;
     });
