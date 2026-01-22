@@ -77,11 +77,10 @@
     </main>
 <script>
 (function(){
-  if (window.__NYV_FIX_ATC__) return;
-  window.__NYV_FIX_ATC__ = true;
+  if (window.__NYV_ATC_V2__) return;
+  window.__NYV_ATC_V2__ = true;
 
   function openDrawer(){
-    // Impact: clic sur l’icône panier ouvre le "Cajón"
     const btn =
       document.querySelector('[data-drawer-open="cart"]') ||
       document.querySelector('.header__icon--cart, .header__icon-cart, .header__cart') ||
@@ -89,30 +88,77 @@
     if (btn) btn.click();
   }
 
-  async function ajaxAdd(form){
+  async function addById(id, quantity){
     const res = await fetch('/cart/add.js', {
       method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
+      headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
+      body: JSON.stringify({ id: Number(id), quantity: Number(quantity || 1) })
     });
     if (!res.ok) throw new Error('add_failed');
 
-    // refresh + ouvre tiroir
     document.dispatchEvent(new CustomEvent('cart:refresh'));
     document.dispatchEvent(new CustomEvent('cart:open'));
-    setTimeout(openDrawer, 150);
+    setTimeout(openDrawer, 120);
   }
 
+  function getQty(form){
+    const q = form && form.querySelector('[name="quantity"]');
+    return q && q.value ? Number(q.value) : 1;
+  }
+
+  function getVariantId(form){
+    const idInput = form && form.querySelector('[name="id"]');
+    return idInput && idInput.value ? idInput.value : null;
+  }
+
+  // 1) Intercepte SUBMIT /cart/add
   document.addEventListener('submit', function(e){
     const form = e.target;
-    if (!form || !(form.action || '').includes('/cart/add')) return;
+    if (!form) return;
+    if (!((form.action || '').includes('/cart/add'))) return;
 
-    // bloque la redirection /cart
+    const id = getVariantId(form);
+    if (!id) return; // si pas de variant, on laisse le thème gérer
+
     e.preventDefault();
     e.stopPropagation();
 
-    ajaxAdd(form).catch(()=> alert("Erreur ajout panier"));
+    addById(id, getQty(form)).catch(()=> alert("Erreur ajout panier"));
   }, true);
+
+  // 2) Intercepte CLIC sur bouton "Ajouter au panier"
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('button[name="add"], button[type="submit"], .product-form__submit, [data-add-to-cart], #AddToCart');
+    if (!btn) return;
+
+    const form = btn.closest('form');
+    const id = getVariantId(form);
+    if (!id) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    addById(id, getQty(form)).catch(()=> alert("Erreur ajout panier"));
+  }, true);
+
+  // 3) Intercepte liens /cart/add?id=...
+  document.addEventListener('click', function(e){
+    const link = e.target.closest('a[href*="/cart/add"]');
+    if (!link) return;
+
+    try{
+      const u = new URL(link.href, location.origin);
+      const id  = u.searchParams.get('id');
+      const qty = u.searchParams.get('quantity') || 1;
+      if (!id) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      addById(id, qty).catch(()=> alert("Erreur ajout panier"));
+    }catch(err){}
+  }, true);
+
 })();
 </script>
 
