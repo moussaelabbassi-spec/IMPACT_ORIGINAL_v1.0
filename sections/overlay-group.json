@@ -33,7 +33,9 @@
     },
     "cart-drawer": {
       "type": "cart-drawer",
-      "custom_css": [],
+      "custom_css": [
+        ".drawer [name=checkout],a[href^=\"/checkout\"]{background:#FFD84D!important; color:#000!important; font-weight:900!important; border-radius:999px!important; padding:16px!important;}"
+      ],
       "settings": {
         "show_cart_note": true,
         "show_shipping_text": true,
