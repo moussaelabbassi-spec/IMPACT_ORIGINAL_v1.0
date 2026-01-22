@@ -21,8 +21,8 @@
             "mobile_icon_width": 60,
             "icon_width": 64,
             "icon_background_type": "circle",
-            "icon_background": "#1a1a1a",
-            "icon_color": "#f0c417",
+            "icon_background": "#f0c417",
+            "icon_color": "#000000",
             "title": "Livraison gratuite",
             "content": ""
           }
@@ -34,8 +34,8 @@
             "mobile_icon_width": 60,
             "icon_width": 60,
             "icon_background_type": "circle",
-            "icon_background": "#1a1a1a",
-            "icon_color": "#f0c417",
+            "icon_background": "#f0c417",
+            "icon_color": "#000000",
             "title": "Paiement securisé",
             "content": ""
           }
@@ -47,8 +47,8 @@
             "mobile_icon_width": 60,
             "icon_width": 60,
             "icon_background_type": "circle",
-            "icon_background": "#1a1a1a",
-            "icon_color": "#f0c417",
+            "icon_background": "#f0c417",
+            "icon_color": "#000000",
             "title": "Satisfait ou remboursé",
             "content": ""
           }
@@ -60,8 +60,8 @@
             "mobile_icon_width": 60,
             "icon_width": 60,
             "icon_background_type": "circle",
-            "icon_background": "#1a1a1a",
-            "icon_color": "#f0c417",
+            "icon_background": "#f0c417",
+            "icon_color": "#1a1a1a",
             "title": "Service client 7j/7",
             "content": ""
           }
@@ -80,7 +80,7 @@
         "heading_tag": "h6",
         "text_alignment": "center",
         "icon_spacing": "small",
-        "background": "#f0c417",
+        "background": "#f0f0f0",
         "background_gradient": "",
         "text_color": ""
       }
