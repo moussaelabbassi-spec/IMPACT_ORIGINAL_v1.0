@@ -77,8 +77,11 @@
     </main>
 <script>
 (function(){
-  if (window.__NYV_ATC_V2__) return;
-  window.__NYV_ATC_V2__ = true;
+  if (window.__NYV_ATC_V3__) return;
+  window.__NYV_ATC_V3__ = true;
+
+  // ✅ Mini indicateur (tu peux l'enlever après)
+  console.log("[NYV] ATC V3 chargé ✅");
 
   function openDrawer(){
     const btn =
@@ -88,17 +91,9 @@
     if (btn) btn.click();
   }
 
-  async function addById(id, quantity){
-    const res = await fetch('/cart/add.js', {
-      method: 'POST',
-      headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
-      body: JSON.stringify({ id: Number(id), quantity: Number(quantity || 1) })
-    });
-    if (!res.ok) throw new Error('add_failed');
-
-    document.dispatchEvent(new CustomEvent('cart:refresh'));
-    document.dispatchEvent(new CustomEvent('cart:open'));
-    setTimeout(openDrawer, 120);
+  function getVariantId(form){
+    const idInput = form && form.querySelector('[name="id"]');
+    return idInput && idInput.value ? idInput.value : null;
   }
 
   function getQty(form){
@@ -106,57 +101,62 @@
     return q && q.value ? Number(q.value) : 1;
   }
 
-  function getVariantId(form){
-    const idInput = form && form.querySelector('[name="id"]');
-    return idInput && idInput.value ? idInput.value : null;
+  async function addById(id, quantity){
+    const res = await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
+      body: JSON.stringify({ id: Number(id), quantity: Number(quantity || 1) })
+    });
+
+    if (!res.ok) {
+      const txt = await res.text().catch(()=> "");
+      throw new Error("add_failed: " + txt);
+    }
+
+    // events (Impact)
+    document.dispatchEvent(new CustomEvent('cart:refresh'));
+    document.dispatchEvent(new CustomEvent('cart:open'));
+    setTimeout(openDrawer, 120);
   }
 
-  // 1) Intercepte SUBMIT /cart/add
-  document.addEventListener('submit', function(e){
-    const form = e.target;
-    if (!form) return;
-    if (!((form.action || '').includes('/cart/add'))) return;
-
+  async function handle(form, e){
     const id = getVariantId(form);
-    if (!id) return; // si pas de variant, on laisse le thème gérer
+    if (!id) return false; // pas de variant → on laisse Shopify gérer
 
     e.preventDefault();
     e.stopPropagation();
 
-    addById(id, getQty(form)).catch(()=> alert("Erreur ajout panier"));
+    console.log("[NYV] Intercept add-to-cart, variant:", id);
+
+    try{
+      await addById(id, getQty(form));
+      return true;
+    }catch(err){
+      console.warn("[NYV] AJAX add failed → fallback Shopify", err);
+
+      // ✅ Fallback : on laisse Shopify faire (au moins ça marche)
+      try { form.submit(); } catch(e2) {}
+      return true;
+    }
+  }
+
+  // 1) SUBMIT
+  document.addEventListener('submit', function(e){
+    const form = e.target;
+    if (!form) return;
+    if (!((form.action || '').includes('/cart/add'))) return;
+    handle(form, e);
   }, true);
 
-  // 2) Intercepte CLIC sur bouton "Ajouter au panier"
+  // 2) CLIC sur bouton ATC
   document.addEventListener('click', function(e){
     const btn = e.target.closest('button[name="add"], button[type="submit"], .product-form__submit, [data-add-to-cart], #AddToCart');
     if (!btn) return;
 
     const form = btn.closest('form');
-    const id = getVariantId(form);
-    if (!id) return;
+    if (!form) return;
 
-    e.preventDefault();
-    e.stopPropagation();
-
-    addById(id, getQty(form)).catch(()=> alert("Erreur ajout panier"));
-  }, true);
-
-  // 3) Intercepte liens /cart/add?id=...
-  document.addEventListener('click', function(e){
-    const link = e.target.closest('a[href*="/cart/add"]');
-    if (!link) return;
-
-    try{
-      const u = new URL(link.href, location.origin);
-      const id  = u.searchParams.get('id');
-      const qty = u.searchParams.get('quantity') || 1;
-      if (!id) return;
-
-      e.preventDefault();
-      e.stopPropagation();
-
-      addById(id, qty).catch(()=> alert("Erreur ajout panier"));
-    }catch(err){}
+    handle(form, e);
   }, true);
 
 })();
