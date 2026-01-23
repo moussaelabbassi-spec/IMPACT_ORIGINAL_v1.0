@@ -269,6 +269,14 @@
             "payment_button_text_color": "#ffffff"
           }
         },
+        "image_WJ6APk": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Payments.webp",
+            "alignment": "center",
+            "max_width": 500
+          }
+        },
         "image_BfpxGk": {
           "type": "image",
           "settings": {
@@ -285,6 +293,7 @@
         "quantity-selector",
         "liquid_YqjJB6",
         "buy-buttons",
+        "image_WJ6APk",
         "image_BfpxGk"
       ],
       "settings": {
